@@ -7,24 +7,107 @@
       <h2 class="subtitle">
         Kanban lanes and card manager
       </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+      <div>
+        <kanban-board :groups="groups" :lanes="lanes" :cards="cards">
+          <template v-slot:card="{ card }">
+            <h4>hi, {{ card.title }}</h4>
+          </template>
+        </kanban-board>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import KanbanBoard from '~/components/KanbanBoard'
+
+export default {
+  components: {
+    KanbanBoard
+  },
+  data() {
+    return {
+      groups: [
+        {
+          id: 'todo',
+          title: 'TODO',
+          laneIds: ['ideas', 'shaping', 'betting']
+        },
+        {
+          id: 'doing',
+          title: 'Doing',
+          laneIds: ['design', 'dev', 'test', 'release']
+        },
+        {
+          id: 'done',
+          title: 'Done',
+          laneIds: ['completed', 'trash']
+        }
+      ],
+      lanes: [
+        {
+          id: 'ideas',
+          title: 'Ideas',
+          cardIds: []
+        },
+        {
+          id: 'shaping',
+          title: 'Shaping',
+          cardIds: []
+        },
+        {
+          id: 'betting',
+          title: 'Betting',
+          cardIds: ['wake']
+        },
+        {
+          id: 'design',
+          title: 'Design',
+          cardIds: []
+        },
+        {
+          id: 'dev',
+          title: 'Dev',
+          cardIds: []
+        },
+        {
+          id: 'test',
+          title: 'Test',
+          cardIds: []
+        },
+        {
+          id: 'release',
+          title: 'Release',
+          cardIds: []
+        },
+        {
+          id: 'completed',
+          title: 'Completed',
+          cardIds: []
+        },
+        {
+          id: 'trash',
+          title: 'Trash',
+          cardIds: []
+        }
+      ],
+      cards: [
+        {
+          id: 'wake',
+          title: 'Wake the damn kids'
+        }
+      ]
+    }
+  },
+  methods: {
+    getLaneById(laneId) {
+      return this.lanes.find((lane) => lane.id === laneId)
+    },
+    getCardById(cardId) {
+      return this.cards.find((card) => card.id === cardId)
+    }
+  }
+}
 </script>
 
 <style>

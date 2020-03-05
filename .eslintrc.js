@@ -19,5 +19,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'prettier/prettier': 'warn',
+    'no-console': 'off'
   }
 }
